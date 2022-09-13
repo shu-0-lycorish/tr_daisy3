@@ -33,6 +33,7 @@ defmodule TrDaisy3.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.6.11"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
@@ -48,7 +49,9 @@ defmodule TrDaisy3.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+
+      {:phx_gen_tailwind, "~> 0.1.3", only: :dev} # 追加
     ]
   end
 
@@ -60,11 +63,11 @@ defmodule TrDaisy3.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["cmd --cd assets npm run deploy", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

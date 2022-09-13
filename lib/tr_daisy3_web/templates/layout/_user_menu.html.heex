@@ -1,0 +1,20 @@
+<ul>
+<%= if @current_user do %>
+  <header>
+    <section>
+      <nav class="navbar bg-primary text-primary-content">
+        <div class="flex-1">
+          <a class="btn btn-ghost normal-case text-4xl" href="/">Daisy</a>
+        </div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal">                      
+            <li><p><%= @current_user.email %></p></li>
+            <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
+            <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+  </header>
+<% end %>
+</ul>
